@@ -1,0 +1,10 @@
+# ch9/escape-analysis
+./main.go:16:6: cannot inline createPerson: marked go:noinline
+./main.go:10:6: cannot inline main: function too complex: cost 141 exceeds budget 80
+./main.go:12:13: inlining call to fmt.Println
+./main.go:17:2: p escapes to heap:
+./main.go:17:2:   flow: ~r0 = &p:
+./main.go:17:2:     from &p (address-of) at ./main.go:18:9
+./main.go:17:2:     from return &p (return) at ./main.go:18:2
+./main.go:17:2: moved to heap: p
+./main.go:12:13: ... argument does not escape
