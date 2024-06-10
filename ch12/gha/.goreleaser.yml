@@ -1,0 +1,27 @@
+builds:
+  -   ldflags:
+        - -s -w
+        - -extldflags "-static"
+      env:
+        - CGO_ENABLED=0
+      goos:
+        - linux
+        - windows
+        - darwin
+      goarch:
+        - amd64
+      mod_timestamp: '{{ .CommitTimestamp }}'
+archives:
+  -   name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+      wrap_in_directory: true
+      format: binary
+      format_overrides:
+        - goos: windows
+          format: zip
+
+dockers: # Change this section for your Docker image settings
+  - image_templates:
+      - "ghcr.io/alexrios/endpoints:{{ .Tag }}"
+      - "ghcr.io/alexrios/endpoints:v{{ .Major }}"
+      - "ghcr.io/alexrios/endpoints:v{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/alexrios/endpoints:latest"
