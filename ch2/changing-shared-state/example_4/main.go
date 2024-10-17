@@ -24,7 +24,7 @@ func PackItems(totalItems int32) int32 {
 
 	var wg sync.WaitGroup
 
-	itemsPacked := 0
+	itemsPacked := int32(0)
 	for i := 0; i < workers; i++ {
 		wg.Add(1)
 
@@ -32,8 +32,9 @@ func PackItems(totalItems int32) int32 {
 			defer wg.Done()
 			// Simulate the worker packing items into boxes.
 			for j := 0; j < itemsPerWorker; j++ {
-				atomic.AddInt32(&totalItems, int32(itemsPacked))
+				atomic.AddInt32(&itemsPacked, 1)
 			}
+			atomic.SwapInt32(&totalItems, itemsPacked)
 		}(i)
 
 	}
