@@ -34,13 +34,13 @@ func PackItems(totalItems int32) int32 {
 			for j := 0; j < itemsPerWorker; j++ {
 				atomic.AddInt32(&itemsPacked, 1)
 			}
-			atomic.SwapInt32(&totalItems, itemsPacked)
 		}(i)
 
 	}
 
 	// Wait for all workers to finish.
 	wg.Wait()
+	atomic.SwapInt32(&totalItems, itemsPacked)
 
 	return totalItems
 }
