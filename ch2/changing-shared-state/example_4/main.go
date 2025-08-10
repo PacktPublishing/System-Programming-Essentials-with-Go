@@ -1,21 +1,13 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"sync"
 	"sync/atomic"
 )
 
 func main() {
-	times := 0
-
-	for {
-		times++
-		counter := PackItems(0)
-		if counter != 2000 {
-			log.Fatalf("it should be 2000 but found %d on execution %d", counter, times)
-		}
-	}
+	fmt.Println("Total Items Packed:", PackItems(0))
 }
 
 func PackItems(totalItems int32) int32 {
